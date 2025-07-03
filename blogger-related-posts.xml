@@ -1,0 +1,152 @@
+<!-- Related Posts Section -->
+<b:if cond='data:post.labels'>
+  <div class='related-posts-container'>
+    <h3 class='related-posts-title'>Related Posts</h3>
+    <div class='related-posts-wrapper'>
+      <b:loop values='data:posts' var='relatedPost' index='relatedIndex'>
+        <b:if cond='data:relatedPost.id != data:post.id'>
+          <b:loop values='data:post.labels' var='currentLabel'>
+            <b:loop values='data:relatedPost.labels' var='relatedLabel'>
+              <b:if cond='data:currentLabel.name == data:relatedLabel.name'>
+                <b:if cond='data:relatedIndex &lt; 3'>
+                  <div class='related-post-item'>
+                    <b:if cond='data:relatedPost.featuredImage'>
+                      <div class='related-post-thumbnail'>
+                        <a expr:href='data:relatedPost.url' expr:title='data:relatedPost.title'>
+                          <img expr:alt='data:relatedPost.title' expr:src='data:relatedPost.featuredImage.isResizable ? resizeImage(data:relatedPost.featuredImage, 150, &quot;150:100&quot;) : data:relatedPost.featuredImage' loading='lazy'/>
+                        </a>
+                      </div>
+                    </b:if>
+                    <div class='related-post-content'>
+                      <h4 class='related-post-title'>
+                        <a expr:href='data:relatedPost.url' expr:title='data:relatedPost.title'>
+                          <data:relatedPost.title/>
+                        </a>
+                      </h4>
+                      <div class='related-post-meta'>
+                        <time expr:datetime='data:relatedPost.timestamp.iso8601' expr:title='data:relatedPost.timestamp'>
+                          <data:relatedPost.timestamp/>
+                        </time>
+                      </div>
+                      <b:if cond='data:relatedPost.snippet'>
+                        <div class='related-post-snippet'>
+                          <data:relatedPost.snippet/>
+                        </div>
+                      </b:if>
+                    </div>
+                  </div>
+                </b:if>
+              </b:if>
+            </b:loop>
+          </b:loop>
+        </b:if>
+      </b:loop>
+    </div>
+  </div>
+
+  <!-- AMP-compatible CSS (inline styles) -->
+  <style>
+    .related-posts-container {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    .related-posts-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 0.5rem;
+    }
+    
+    .related-posts-wrapper {
+      display: grid;
+      gap: 1rem;
+    }
+    
+    .related-post-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    
+    .related-post-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .related-post-thumbnail {
+      flex-shrink: 0;
+      width: 100px;
+      height: 75px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    
+    .related-post-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .related-post-content {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .related-post-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+    
+    .related-post-title a {
+      color: #333;
+      text-decoration: none;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .related-post-title a:hover {
+      color: #007bff;
+    }
+    
+    .related-post-meta {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+    
+    .related-post-snippet {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .related-post-item {
+        flex-direction: column;
+      }
+      
+      .related-post-thumbnail {
+        width: 100%;
+        height: 150px;
+      }
+    }
+  </style>
+</b:if>
