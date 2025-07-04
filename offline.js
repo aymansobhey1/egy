@@ -2,7 +2,7 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('offline-cache').then(function(cache) {
       return cache.addAll([
-        '/p/offline.html'
+        'https://blinfp.blogspot.com/p/offline.html'
       ]);
     })
   );
